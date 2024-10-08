@@ -23,6 +23,7 @@ import com.example.wqcomic.databinding.FragmentDetailComicBinding;
 import com.example.wqcomic.models.Chapter;
 import com.example.wqcomic.models.Comic;
 import com.example.wqcomic.models.FavoriteComic;
+import com.example.wqcomic.utils.AuthManager;
 import com.example.wqcomic.utils.Loading;
 import com.example.wqcomic.utils.OnClick.ClickDetailChapter;
 
@@ -91,8 +92,8 @@ public class DetailComicFragment extends Fragment implements ClickDetailChapter 
         // Khởi tạo UserManager
 //        UserManager userManager = new UserManager(requireActivity());
 //        String userId = userManager.getUserId(); // Lấy ID người dùng
-        String userId = "66ebaa43165093890bdc518a";
-
+        AuthManager authManager = new AuthManager(requireActivity());
+        String userId = authManager.getUserId(); // Lấy ID người dùng
         // Kiểm tra xem userId có hợp lệ không
         if (userId == null) {
             Toast.makeText(getContext(), "Bạn cần đăng nhập để theo dõi truyện", Toast.LENGTH_SHORT).show();
@@ -143,7 +144,9 @@ public class DetailComicFragment extends Fragment implements ClickDetailChapter 
 //        // Khởi tạo UserManager
 //        UserManager userManager = new UserManager(requireActivity());
 //        String userId = userManager.getUserId(); // Lấy ID người dùng
-        String userId = "66ebaa43165093890bdc518a";
+        AuthManager authManager = new AuthManager(requireActivity());
+        String userId = authManager.getUserId(); // Lấy ID người dùng
+
 
         // Kiểm tra xem userId có hợp lệ không
         if (userId == null) {
@@ -185,11 +188,12 @@ public class DetailComicFragment extends Fragment implements ClickDetailChapter 
 //        String userId = userManager.getUserId(); // Lấy ID người dùng
 
         // Kiểm tra xem userId có hợp lệ không
-        String userId = "66ebaa43165093890bdc518a";
+        AuthManager authManager = new AuthManager(requireActivity());
+        String userId = authManager.getUserId(); // Lấy ID người dùng
 
         // Kiểm tra xem userId có hợp lệ không
         if (userId == null) {
-            Toast.makeText(getContext(), "Bạn cần đăng nhập để theo dõi truyện", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),("Bạn cần đăng nhập để theo dõi truyện"), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -252,6 +256,7 @@ public class DetailComicFragment extends Fragment implements ClickDetailChapter 
         Call<Comic> call = comicApi.getComicById(comicId);
 
         call.enqueue(new Callback<Comic>() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onResponse(@NonNull Call<Comic> call, @NonNull Response<Comic> response) {
                 // Ẩn ProgressBar
@@ -280,6 +285,7 @@ public class DetailComicFragment extends Fragment implements ClickDetailChapter 
                             genreString.setLength(genreString.length() - 2);
                         }
                         binding.tvGenre.setText(genreString.toString()); // Gán vào TextView
+                        binding.comicViews.setText(comic.getReadCount()+" views");
                     } else {
                         binding.tvGenre.setText(""); // Nếu không có genre
                     }

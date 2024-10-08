@@ -24,7 +24,6 @@ import com.example.wqcomic.fragments.FavoriteFragment;
 import com.example.wqcomic.fragments.HistoryFragment;
 import com.example.wqcomic.fragments.HomeFragment;
 import com.example.wqcomic.fragments.ProfileFragment;
-import com.example.wqcomic.fragments.ReadComicFragment;
 import com.example.wqcomic.fragments.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -75,17 +74,6 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
-        // Kiểm tra loại fragment và ẩn hoặc hiện BottomNavigationView
-//        if (fragment instanceof ReadComicFragment) {
-//            binding.bottomAppBar.setVisibility(View.GONE);
-//            binding.fab.setVisibility(View.GONE);
-//            Toast.makeText(this, "Đang ở ReadComicFragment", Toast.LENGTH_SHORT).show();
-//        } else {
-//            binding.bottomAppBar.setVisibility(View.VISIBLE);
-//            binding.fab.setVisibility(View.VISIBLE);
-//            Toast.makeText(this, "Đang không ở ReadComicFragment", Toast.LENGTH_SHORT).show();
-//
-//        }
     }
 
     private void showBottomDialog() {

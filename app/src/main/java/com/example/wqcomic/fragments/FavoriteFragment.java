@@ -15,14 +15,11 @@ import android.widget.Toast;
 
 import com.example.wqcomic.R;
 import com.example.wqcomic.adapters.AllFavoriteComicsAdapter;
-import com.example.wqcomic.adapters.FavoriteComicAdapter;
 import com.example.wqcomic.api.ComicApi;
 import com.example.wqcomic.api.RetrofitInstance;
 import com.example.wqcomic.databinding.FragmentFavoriteBinding;
-import com.example.wqcomic.databinding.FragmentHomeBinding;
-import com.example.wqcomic.models.Comic;
 import com.example.wqcomic.models.FavoriteComic;
-import com.example.wqcomic.utils.OnClick.ClickDetailComic;
+import com.example.wqcomic.utils.AuthManager;
 import com.example.wqcomic.utils.OnClick.ClickDetailFavoriteComic;
 
 import java.util.List;
@@ -36,11 +33,17 @@ public class FavoriteFragment extends Fragment implements ClickDetailFavoriteCom
     FragmentFavoriteBinding binding;
     AllFavoriteComicsAdapter adapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentFavoriteBinding.inflate(inflater,container,false);
-        String userId = "66ebaa43165093890bdc518a";
+        AuthManager authManager = new AuthManager(requireActivity());
+        String userId = authManager.getUserId(); // Lấy ID người dùng
+
+        // Kiểm tra xem userId có hợp lệ không
+        if (userId == null) {
+            Toast.makeText(getContext(),("Bạn chưa đăng nhập "), Toast.LENGTH_SHORT).show();
+        }
         fetchFavortieComic(userId);
 
 

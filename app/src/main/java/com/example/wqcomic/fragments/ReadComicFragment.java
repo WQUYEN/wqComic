@@ -16,8 +16,11 @@ import com.example.wqcomic.activities.MainActivity;
 import com.example.wqcomic.adapters.ReadComicAdapter;
 import com.example.wqcomic.api.ComicApi;
 import com.example.wqcomic.api.RetrofitInstance;
+import com.example.wqcomic.api.UserApi;
 import com.example.wqcomic.databinding.FragmentReadComicBinding;
 import com.example.wqcomic.models.Chapter;
+import com.example.wqcomic.models.request.ReadingHistoryRequest;
+import com.example.wqcomic.utils.AuthManager;
 
 
 import retrofit2.Call;
@@ -45,7 +48,11 @@ public class ReadComicFragment extends Fragment {
         if (bundle != null) {
             String comicId = bundle.getString("comicId");
             String chapterId = bundle.getString("chapterId");
-            fetchChapterDetails(comicId, chapterId);
+            AuthManager authManager = new AuthManager(requireActivity());
+            String userId = authManager.getUserId();
+            fetchChapterDetails(comicId, chapterId,userId);
+            updateReadingHistory(userId,comicId,chapterId);
+
         } else {
             Toast.makeText(getContext(), "Read chapter error", Toast.LENGTH_SHORT).show();
         }
@@ -53,7 +60,7 @@ public class ReadComicFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private void fetchChapterDetails(String comicId, String chapterId) {
+    private void fetchChapterDetails(String comicId, String chapterId,String userId) {
         ComicApi comicApi = RetrofitInstance.getApiServiceComics();
         Call<Chapter> call = comicApi.getChapterDetails(comicId, chapterId);
 
@@ -78,7 +85,27 @@ public class ReadComicFragment extends Fragment {
             }
         });
     }
+    private void updateReadingHistory(String userId, String comicId, String chapterId) {
+        // Tạo đối tượng request
+        ReadingHistoryRequest request = new ReadingHistoryRequest(userId, comicId, chapterId);
+        UserApi userApi = RetrofitInstance.getApiServiceUsers();
+        Call<Void> call = userApi.updateReadingHistory(request);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Log.d("UpdateHistory", "Reading history updated successfully.");
+                } else {
+                    Log.d("UpdateHistory", "Failed to update history: " + response.message());
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                Log.e("UpdateHistory", "Error: " + t.getMessage());
+            }
+        });
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

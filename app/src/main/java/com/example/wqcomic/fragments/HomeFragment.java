@@ -5,16 +5,12 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import com.denzcoskun.imageslider.constants.ActionTypes;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.interfaces.TouchListener;
@@ -27,12 +23,11 @@ import com.example.wqcomic.api.RetrofitInstance;
 import com.example.wqcomic.databinding.FragmentHomeBinding;
 import com.example.wqcomic.models.Comic;
 import com.example.wqcomic.models.FavoriteComic;
+import com.example.wqcomic.utils.AuthManager;
 import com.example.wqcomic.utils.OnClick.ClickDetailComic;
 import com.example.wqcomic.utils.OnClick.ClickDetailFavoriteComic;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -46,8 +41,14 @@ public class HomeFragment extends Fragment implements ClickDetailComic, ClickDet
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(inflater,container,false);
-        String userId = "66ebaa43165093890bdc518a";
 
+        AuthManager authManager = new AuthManager(requireActivity());
+        String userId = authManager.getUserId(); // Lấy ID người dùng
+
+        // Kiểm tra xem userId có hợp lệ không
+        if (userId == null) {
+            Toast.makeText(getContext(),("Bạn cần đăng nhập để theo dõi truyện"), Toast.LENGTH_SHORT).show();
+        }
 // Cài đặt adapter cho RecyclerView
 //        YourAdapter adapter = new YourAdapter(yourDataList);
 //        recyclerView.setAdapter(adapter);

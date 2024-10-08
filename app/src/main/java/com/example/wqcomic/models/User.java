@@ -1,6 +1,9 @@
 package com.example.wqcomic.models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+    @SerializedName("_id")
     private String id;
     private String name;
     private String email;
@@ -14,6 +17,7 @@ public class User {
         this.password = password;
         this.isActive = isActive;
     }
+
 
     // Getters và Setters
     public String getId() {
