@@ -9,15 +9,26 @@ public class User {
     private String email;
     private String password;
     private boolean isActive;
+    private boolean isPremium;
+    private String avatar;
 
-    public User(String id, String name, String email, String password, boolean isActive) {
+//    public User(String id, String name, String email, String password, boolean isActive) {
+//        this.id = id;
+//        this.name = name;
+//        this.email = email;
+//        this.password = password;
+//        this.isActive = isActive;
+//    }
+
+    public User(String id, String name, String email, String password, boolean isActive, boolean isPremium, String avatar) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isActive = isActive;
+        this.isPremium = isPremium;
+        this.avatar = avatar;
     }
-
 
     // Getters và Setters
     public String getId() {
@@ -58,5 +69,21 @@ public class User {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public boolean isPremium() {
+        return isPremium;
+    }
+
+    public void setPremium(boolean premium) {
+        isPremium = premium;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

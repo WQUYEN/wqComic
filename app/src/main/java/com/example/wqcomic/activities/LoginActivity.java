@@ -81,7 +81,10 @@ public class LoginActivity extends AppCompatActivity {
                                 loginResponse.getUser().getName(),
                                 loginResponse.getUser().getEmail(),
                                 "",
-                                loginResponse.getUser().isActive()
+                                loginResponse.getUser().isActive(),
+                                loginResponse.getUser().isPremium(),
+                                loginResponse.getUser().getAvatar()
+
                         );
                        // User user = new User(loginResponse.getUser());
 
@@ -89,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                         saveUser(user);
                         Toast.makeText(LoginActivity.this, "Login success", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
                     } else {
                         // Khi có lỗi từ server
                         try {

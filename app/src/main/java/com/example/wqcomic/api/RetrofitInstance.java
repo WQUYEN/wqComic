@@ -7,7 +7,7 @@ public class RetrofitInstance {
     //private static final String BASE_URL = "http://192.168.0.111:3000/";//CF IPV4
    // private static final String BASE_URL = "http://192.168.16.108:3000/";//CF IPV4
    //private static final String BASE_URL = "http://172.19.200.253:3000/";//Ck IPV4
-   private static final String BASE_URL = "http://172.19.201.153:3000/";//Ck IPV4
+   private static final String BASE_URL = "http://192.168.1.159:3000/";//Ck IPV4
   //  private static final String BASE_URL = "http://192.168.1.159:3000/";//Home IPV4
 
     private static final Retrofit retrofit = new Retrofit.Builder()
