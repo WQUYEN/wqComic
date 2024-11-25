@@ -74,6 +74,7 @@
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:layout_gravity="center"
+        android:background="@drawable/rounded_button"
         android:text="Login"/>
     <TextView
         android:layout_width="match_parent"
@@ -83,4 +84,5 @@
 
         android:textSize="20sp"
         android:textAlignment="center"/>
+
 </LinearLayout>

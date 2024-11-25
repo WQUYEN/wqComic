@@ -10,12 +10,14 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.wqcomic.R;
 import com.example.wqcomic.api.RetrofitInstance;
 import com.example.wqcomic.api.UserApi;
 import com.example.wqcomic.databinding.ActivityLoginBinding;
 import com.example.wqcomic.models.User;
 import com.example.wqcomic.models.request.LoginRequest;
 import com.example.wqcomic.models.response.LoginResponse;
+import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -119,6 +121,11 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
+//        String googleIdOption = new GetGoogleIdOption.Builder()
+//                .setFilterByAuthorizedAccounts(true)
+//                        .setServerClientId(String.valueOf(R.string.WEB_CLIENT_ID))
+//                                .setAutoSelectEnabled(true)
+//                                        .setNonce().build();
         binding.tvBackLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
